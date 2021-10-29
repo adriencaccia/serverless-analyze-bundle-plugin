@@ -7,7 +7,7 @@ A Serverless plugin to analyze the bundle of a lambda function.
 Install with
 
 ```bash
-yarn add --dev serverless-analyze-bundle-plugin
+yarn add --dev serverless-analyze-bundle-plugin esbuild-visualizer
 ```
 
 Add `serverless-analyze-bundle-plugin` to your serverless plugins.

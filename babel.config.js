@@ -38,5 +38,4 @@ module.exports = {
     },
   },
   ignore: defaultIgnores,
-  plugins: ['@babel/plugin-transform-runtime'],
 };
