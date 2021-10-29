@@ -1,6 +1,6 @@
 {
   "name": "serverless-analyze-bundle-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Adrien Cacciaguerra",
   "license": "MIT",
   "files": [
@@ -25,11 +25,13 @@
     "watch": "rm -rf dist && concurrently 'yarn:package:* --watch'"
   },
   "bugs": "https://github.com/adriencaccia/gitmoji-cli/issues",
-  "dependencies": {},
+  "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "esbuild-visualizer": "^0.3.1"
+  },
   "devDependencies": {
     "@babel/cli": "^7.13.10",
     "@babel/core": "^7.13.10",
-    "@babel/plugin-transform-runtime": "^7.13.10",
     "@babel/preset-env": "^7.13.10",
     "@babel/preset-typescript": "^7.13.0",
     "@commitlint/cli": "^13.2.1",
@@ -42,7 +44,6 @@
     "@zerollup/ts-transform-paths": "^1.7.18",
     "babel-plugin-module-resolver": "^4.1.0",
     "concurrently": "^6.0.0",
-    "esbuild-visualizer": "^0.3.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.2",
