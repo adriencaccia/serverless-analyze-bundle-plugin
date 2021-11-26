@@ -1,6 +1,6 @@
 {
   "name": "serverless-analyze-bundle-plugin",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Adrien Cacciaguerra",
   "license": "MIT",
   "files": [
@@ -25,13 +25,15 @@
     "watch": "rm -rf dist && concurrently 'yarn:package:* --watch'"
   },
   "bugs": "https://github.com/adriencaccia/serverless-analyze-bundle-plugin/issues",
-  "dependencies": {},
+  "dependencies": {
+    "@babel/runtime": "^7.16.3"
+  },
   "devDependencies": {
-    "@babel/cli": "^7.13.10",
-    "@babel/core": "^7.13.10",
-    "@babel/plugin-transform-runtime": "^7.13.10",
-    "@babel/preset-env": "^7.13.10",
-    "@babel/preset-typescript": "^7.13.0",
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.4",
+    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-typescript": "^7.16.0",
     "@commitlint/cli": "^13.2.1",
     "@commitlint/config-conventional": "^13.2.0",
     "@serverless/typescript": "^2.64.1",
