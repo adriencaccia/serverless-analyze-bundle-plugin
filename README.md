@@ -2,7 +2,12 @@
 
 A Serverless plugin to analyze the bundle of a lambda function.
 
-## Usage
+## Prerequisites 📓
+
+1. Use [serverless-esbuild](https://github.com/floydspace/serverless-esbuild) to bundle your functions
+2. Only [individually bundled functions](https://www.serverless.com/framework/docs/providers/aws/guide/packaging#packaging-functions-separately) can be analyzed
+
+## Usage 📦
 
 Install with
 
