@@ -1,6 +1,7 @@
 import { exec } from 'child_process';
 import { readdirSync, statSync } from 'fs';
-import { join } from 'path';
+import { join, parse } from 'path';
+import { FunctionDefinitionHandler } from 'serverless';
 
 import type { ServerlessAnalyzeBundlePlugin } from './serverlessAnalyzeBundle';
 
@@ -43,12 +44,10 @@ async function bundleVisualizer(this: ServerlessAnalyzeBundlePlugin): Promise<vo
   if (functionName === undefined) {
     return;
   }
+  const slsFunction = this.serverless.service.getFunction(functionName);
 
-  const functionZipName = this.serverless.service
-    .getAllFunctionsNames()
-    .find(fullFunctionName => fullFunctionName.endsWith(functionName));
-
-  if (functionZipName === undefined) {
+  const fullZipPath = slsFunction.package?.artifact;
+  if (fullZipPath === undefined) {
     this.serverless.cli.log(
       `🤯 Analyze failed: function ${functionName} was not found`,
       'ServerlessAnalyzeBundlePlugin',
@@ -57,6 +56,7 @@ async function bundleVisualizer(this: ServerlessAnalyzeBundlePlugin): Promise<vo
 
     return;
   }
+  const functionZipName = parse(fullZipPath).base;
 
   this.serverless.cli.log(`⏳ Analyzing function ${functionName}`, 'ServerlessAnalyzeBundlePlugin');
 
@@ -65,10 +65,22 @@ async function bundleVisualizer(this: ServerlessAnalyzeBundlePlugin): Promise<vo
 
   await pExec(`unzip .serverless/${functionZipName} -d ${TEMP_DIR_LOCATION}`);
 
-  const test = getAllFiles(`${TEMP_DIR_LOCATION}`);
-  const metafileName = test.filter(
-    fileName => fileName.includes(`/${functionName}/`) && fileName.endsWith('-meta.json'),
+  const allFiles = getAllFiles(`${TEMP_DIR_LOCATION}`);
+  const handlerPath = (slsFunction as FunctionDefinitionHandler).handler.split('.')[0];
+  const metafileName = allFiles.filter(
+    fileName => fileName.includes(handlerPath) && fileName.endsWith('-meta.json'),
   )[0];
+
+  if (!metafileName) {
+    this.serverless.cli.log(
+      `🤯 Analyze failed: function ${functionName} metadata was not found`,
+      'ServerlessAnalyzeBundlePlugin',
+      { color: 'red' },
+    );
+
+    return;
+  }
+
   await pExec(
     [
       'node_modules/.bin/esbuild-visualizer',
