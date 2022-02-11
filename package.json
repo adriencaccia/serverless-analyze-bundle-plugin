@@ -1,6 +1,6 @@
 {
   "name": "serverless-analyze-bundle-plugin",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "Adrien Cacciaguerra",
   "license": "MIT",
   "files": [
