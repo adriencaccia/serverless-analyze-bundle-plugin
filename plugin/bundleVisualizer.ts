@@ -1,3 +1,4 @@
+import check from 'check-node-version';
 import { exec } from 'child_process';
 import { readdirSync, statSync } from 'fs';
 import { join, parse } from 'path';
@@ -81,16 +82,23 @@ async function bundleVisualizer(this: ServerlessAnalyzeBundlePlugin): Promise<vo
     return;
   }
 
-  await pExec(
-    [
-      'node_modules/.bin/esbuild-visualizer',
-      '--metadata',
-      metafileName,
-      '--filename',
-      `${TEMP_DIR_LOCATION}/${functionName}.html`,
-      '--open',
-    ].join(' '),
-  );
+  const commandArray = [
+    '--metadata',
+    metafileName,
+    '--filename',
+    `${TEMP_DIR_LOCATION}/${functionName}.html`,
+    '--open',
+  ];
+
+  check({ yarn: '>=2' }, err => {
+    if (err !== null) {
+      commandArray.unshift('node_modules/.bin/esbuild-visualizer');
+    } else {
+      commandArray.unshift('yarn', 'esbuild-visualizer');
+    }
+
+    void pExec(commandArray.join(' '));
+  });
 }
 
 export default bundleVisualizer;

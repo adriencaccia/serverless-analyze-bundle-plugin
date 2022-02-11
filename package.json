@@ -26,7 +26,8 @@
   },
   "bugs": "https://github.com/adriencaccia/serverless-analyze-bundle-plugin/issues",
   "dependencies": {
-    "@babel/runtime": "^7.17.2"
+    "@babel/runtime": "^7.17.2",
+    "check-node-version": "^4.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.0",
