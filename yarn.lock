@@ -6713,6 +6713,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"node-stream-zip@npm:^1.15.0":
+  version: 1.15.0
+  resolution: "node-stream-zip@npm:1.15.0"
+  checksum: 0b73ffbb09490e479c8f47038d7cba803e6242618fbc1b71c26782009d388742ed6fb5ce6e9d31f528b410249e7eb1c6e7534e9d3792a0cafd99813ac5a35107
+  languageName: node
+  linkType: hard
+
 "nopt@npm:^5.0.0":
   version: 5.0.0
   resolution: "nopt@npm:5.0.0"
@@ -7878,6 +7885,7 @@ __metadata:
     eslint-plugin-prettier: ^4.2.1
     husky: ^8.0.1
     lint-staged: ^12.5.0
+    node-stream-zip: ^1.15.0
     prettier: ^2.7.1
     serverless: ^3.21.0
     standard-version: ^9.5.0
