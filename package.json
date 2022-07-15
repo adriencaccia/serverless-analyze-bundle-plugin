@@ -21,6 +21,7 @@
     "prepare": "husky install",
     "prepublishOnly": "yarn package",
     "test:linter": "yarn linter-base-config .",
+    "test:type": "tsc --noEmit --emitDeclarationOnly false",
     "transpile": "babel . --extensions .ts",
     "watch": "rm -rf dist && concurrently 'yarn:package:* --watch'",
     "release": "standard-version"
