@@ -1,0 +1,25 @@
+name: 🚀 Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  CI: true
+  NODE_VERSION: 16
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - run: npx changelogithub
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
