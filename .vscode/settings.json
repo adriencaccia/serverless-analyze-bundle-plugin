@@ -10,7 +10,7 @@
     "**/.serverless": true,
     "yarn.lock": true
   },
-  "[shellscript]": {
+  "[shellscript][ignore]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
   }
 }
