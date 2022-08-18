@@ -1,8 +1,11 @@
 import check from 'check-node-version';
 import { exec } from 'child_process';
 import { readdirSync, statSync } from 'fs';
-import { join, parse } from 'path';
+import { tmpdir } from 'os';
+import { mkdir } from 'fs/promises';
+import { join, normalize, parse } from 'path';
 import { FunctionDefinitionHandler } from 'serverless';
+import StreamZip from 'node-stream-zip';
 
 import type { ServerlessAnalyzeBundlePlugin } from './serverlessAnalyzeBundle';
 
@@ -28,17 +31,18 @@ const getAllFiles = function (dirPath: string, arrayOfFilesInput: string[] = [])
   let arrayOfFiles = arrayOfFilesInput;
 
   files.forEach(function (file) {
-    if (statSync(dirPath + '/' + file).isDirectory()) {
-      arrayOfFiles = getAllFiles(dirPath + '/' + file, arrayOfFiles);
+    const filePath = join(dirPath, file);
+    if (statSync(filePath).isDirectory()) {
+      arrayOfFiles = getAllFiles(filePath, arrayOfFiles);
     } else {
-      arrayOfFiles.push(join(dirPath, '/', file));
+      arrayOfFiles.push(filePath);
     }
   });
 
   return arrayOfFiles;
 };
 
-const TMP_FOLDER = '/tmp/serverless-esbuild-bundle-analyzer';
+const TMP_FOLDER = join(tmpdir(), 'serverless-esbuild-bundle-analyzer');
 
 async function bundleVisualizer(this: ServerlessAnalyzeBundlePlugin): Promise<void> {
   const { analyze: functionName } = this.options;
@@ -61,13 +65,14 @@ async function bundleVisualizer(this: ServerlessAnalyzeBundlePlugin): Promise<vo
 
   this.serverless.cli.log(`⏳ Analyzing function ${functionName}`, 'ServerlessAnalyzeBundlePlugin');
 
-  const TEMP_DIR_LOCATION = `${TMP_FOLDER}/${functionZipName}/${new Date().getTime()}`;
-  await pExec(`mkdir -p ${TEMP_DIR_LOCATION}`);
+  const TEMP_DIR_LOCATION = join(TMP_FOLDER, functionZipName, new Date().getTime().toString());
+  await mkdir(TEMP_DIR_LOCATION, { recursive: true });
 
-  await pExec(`unzip .serverless/${functionZipName} -d ${TEMP_DIR_LOCATION}`);
+  const functionZip = new StreamZip.async({ file: `.serverless/${functionZipName}` });
+  await functionZip.extract(null, TEMP_DIR_LOCATION);
 
   const allFiles = getAllFiles(`${TEMP_DIR_LOCATION}`);
-  const handlerPath = (slsFunction as FunctionDefinitionHandler).handler.split('.')[0];
+  const handlerPath = normalize((slsFunction as FunctionDefinitionHandler).handler.split('.')[0]);
   const metafileName = allFiles.filter(
     fileName => fileName.includes(handlerPath) && fileName.endsWith('-meta.json'),
   )[0];
