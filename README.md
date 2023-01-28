@@ -22,3 +22,13 @@ Run the following command to analyze a function:
 ```bash
 serverless package --analyze myFunctionName
 ```
+
+## Options 🛠
+
+### `--analyze`
+
+The name of the function to analyze.
+
+### `--template`
+
+The bundle template to use. Should be one of `sunburst`, `treemap`, `network`. Defaults to `treemap`.

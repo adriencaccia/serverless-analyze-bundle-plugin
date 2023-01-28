@@ -1,4 +1,4 @@
-import { Metadata, visualizer } from 'esbuild-visualizer';
+import { Metadata, TemplateType, visualizer } from 'esbuild-visualizer';
 import { mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'fs';
 import { mkdir } from 'fs/promises';
 import StreamZip from 'node-stream-zip';
@@ -31,7 +31,7 @@ const TMP_FOLDER = join(tmpdir(), 'serverless-esbuild-bundle-analyzer');
 
 async function bundleVisualizer(
   this: ServerlessAnalyzeBundlePlugin,
-  options: { logging: Plugin.Logging },
+  options: { logging: Plugin.Logging; template: TemplateType },
 ): Promise<void> {
   const { analyze: functionName } = this.options;
   if (functionName === undefined) {
@@ -41,17 +41,13 @@ async function bundleVisualizer(
 
   const fullZipPath = slsFunction.package?.artifact;
   if (fullZipPath === undefined) {
-    options.logging.log.info(
-      `🤯 Analyze failed: function ${functionName} was not found`,
-      'ServerlessAnalyzeBundlePlugin',
-      { color: 'red' },
-    );
-
-    return;
+    // @ts-expect-error serverless is badly typed 🤔
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    throw new serverless.classes.Error(`🤯 Analyze failed: function ${functionName} was not found`);
   }
   const functionZipName = parse(fullZipPath).base;
 
-  options.logging.log.info(
+  options.logging.log.notice(
     `⏳ Analyzing function ${functionName}`,
     'ServerlessAnalyzeBundlePlugin',
   );
@@ -81,7 +77,7 @@ async function bundleVisualizer(
 
   const fileContent = await visualizer(jsonContent, {
     title: `${functionName} function bundle visualizer `,
-    template: 'treemap',
+    template: options.template,
   });
 
   const filename = `${TEMP_DIR_LOCATION}/${functionName}.html`;
