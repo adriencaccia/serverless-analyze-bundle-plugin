@@ -2842,36 +2842,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "chalk@npm:3.0.0"
-  dependencies:
-    ansi-styles: ^4.1.0
-    supports-color: ^7.1.0
-  checksum: 8e3ddf3981c4da405ddbd7d9c8d91944ddf6e33d6837756979f7840a29272a69a5189ecae0ff84006750d6d1e92368d413335eab4db5476db6e6703a1d1e0505
-  languageName: node
-  linkType: hard
-
 "chardet@npm:^0.7.0":
   version: 0.7.0
   resolution: "chardet@npm:0.7.0"
   checksum: 6fd5da1f5d18ff5712c1e0aed41da200d7c51c28f11b36ee3c7b483f3696dabc08927fc6b227735eb8f0e1215c9a8abd8154637f3eff8cada5959df7f58b024d
-  languageName: node
-  linkType: hard
-
-"check-node-version@npm:^4.2.1":
-  version: 4.2.1
-  resolution: "check-node-version@npm:4.2.1"
-  dependencies:
-    chalk: ^3.0.0
-    map-values: ^1.0.1
-    minimist: ^1.2.0
-    object-filter: ^1.0.2
-    run-parallel: ^1.1.4
-    semver: ^6.3.0
-  bin:
-    check-node-version: bin.js
-  checksum: a559236ce202125decfc51ffa9be5cfa46f2b791e0c0e7e41c306fb7c0729a4641669228c4b95749e5f518608609ba6cf3b7963116b4e2d49bd45e18c6bd9cb4
   languageName: node
   linkType: hard
 
@@ -3019,6 +2993,17 @@ __metadata:
     strip-ansi: ^6.0.0
     wrap-ansi: ^7.0.0
   checksum: ce2e8f578a4813806788ac399b9e866297740eecd4ad1823c27fd344d78b22c5f8597d548adbcc46f0573e43e21e751f39446c5a5e804a12aace402b7a315d7f
+  languageName: node
+  linkType: hard
+
+"cliui@npm:^8.0.1":
+  version: 8.0.1
+  resolution: "cliui@npm:8.0.1"
+  dependencies:
+    string-width: ^4.2.0
+    strip-ansi: ^6.0.1
+    wrap-ansi: ^7.0.0
+  checksum: 79648b3b0045f2e285b76fb2e24e207c6db44323581e421c3acbd0e86454cba1b37aea976ab50195a49e7384b871e6dfb2247ad7dec53c02454ac6497394cb56
   languageName: node
   linkType: hard
 
@@ -3749,6 +3734,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"define-lazy-prop@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "define-lazy-prop@npm:2.0.0"
+  checksum: 0115fdb065e0490918ba271d7339c42453d209d4cb619dfe635870d906731eff3e1ade8028bb461ea27ce8264ec5e22c6980612d332895977e89c1bbc80fcee2
+  languageName: node
+  linkType: hard
+
 "define-properties@npm:^1.1.3, define-properties@npm:^1.1.4":
   version: 1.1.4
   resolution: "define-properties@npm:1.1.4"
@@ -4065,6 +4057,18 @@ __metadata:
     es6-iterator: ^2.0.3
     es6-symbol: ^3.1.1
   checksum: 19ca15f46d50948ce78c2da5f21fb5b1ef45addd4fe17b5df952ff1f2a3d6ce4781249bc73b90995257264be2a98b2ec749bb2aba0c14b5776a1154178f9c927
+  languageName: node
+  linkType: hard
+
+"esbuild-visualizer@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "esbuild-visualizer@npm:0.4.0"
+  dependencies:
+    open: ^8.4.0
+    yargs: ^17.6.2
+  bin:
+    esbuild-visualizer: dist/bin/cli.js
+  checksum: 115347f3d0a51eda47e5c525097932daff5d8ea64dd99944e7934757abebbad78ae825c554482d1079a1a4ef3991dada30395cb35bea7dec2e3a243a320899f5
   languageName: node
   linkType: hard
 
@@ -5514,7 +5518,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-docker@npm:^2.0.0, is-docker@npm:^2.2.1":
+"is-docker@npm:^2.0.0, is-docker@npm:^2.1.1, is-docker@npm:^2.2.1":
   version: 2.2.1
   resolution: "is-docker@npm:2.2.1"
   bin:
@@ -5716,7 +5720,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-wsl@npm:^2.1.1":
+"is-wsl@npm:^2.1.1, is-wsl@npm:^2.2.0":
   version: 2.2.0
   resolution: "is-wsl@npm:2.2.0"
   dependencies:
@@ -6329,13 +6333,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"map-values@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "map-values@npm:1.0.1"
-  checksum: 0ab60d451f4708861641dbb965e27b645c717c68083ff5927b7ad8473bd0bfb6069a561b6a6d83fa3a757fdb55b5772cfc07fd39a9956194f3b1532ad18478e3
-  languageName: node
-  linkType: hard
-
 "memoizee@npm:^0.4.14, memoizee@npm:^0.4.15":
   version: 0.4.15
   resolution: "memoizee@npm:0.4.15"
@@ -6812,13 +6809,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object-filter@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "object-filter@npm:1.0.2"
-  checksum: 9542bb51d33b76353587c6e49e3e1d7d8e8c00484b19c6b3d63c2bc7777873e50b842f9588cd506dcb138add559ee7a5dafb7951f6e8df40af1a9558c08412cb
-  languageName: node
-  linkType: hard
-
 "object-hash@npm:^2.2.0":
   version: 2.2.0
   resolution: "object-hash@npm:2.2.0"
@@ -6888,6 +6878,17 @@ __metadata:
     is-docker: ^2.0.0
     is-wsl: ^2.1.1
   checksum: 3333900ec0e420d64c23b831bc3467e57031461d843c801f569b2204a1acc3cd7b3ec3c7897afc9dde86491dfa289708eb92bba164093d8bd88fb2c231843c91
+  languageName: node
+  linkType: hard
+
+"open@npm:^8.4.0":
+  version: 8.4.0
+  resolution: "open@npm:8.4.0"
+  dependencies:
+    define-lazy-prop: ^2.0.0
+    is-docker: ^2.1.1
+    is-wsl: ^2.2.0
+  checksum: e9545bec64cdbf30a0c35c1bdc310344adf8428a117f7d8df3c0af0a0a24c513b304916a6d9b11db0190ff7225c2d578885080b761ed46a3d5f6f1eebb98b63c
   languageName: node
   linkType: hard
 
@@ -7756,7 +7757,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"run-parallel@npm:^1.1.4, run-parallel@npm:^1.1.9":
+"run-parallel@npm:^1.1.9":
   version: 1.2.0
   resolution: "run-parallel@npm:1.2.0"
   dependencies:
@@ -7877,8 +7878,8 @@ __metadata:
     "@typescript-eslint/parser": ^5.30.6
     "@zerollup/ts-transform-paths": ^1.7.18
     babel-plugin-module-resolver: ^4.1.0
-    check-node-version: ^4.2.1
     concurrently: ^7.2.2
+    esbuild-visualizer: ^0.4.0
     eslint: ^8.19.0
     eslint-config-prettier: ^8.5.0
     eslint-plugin-import: ^2.26.0
@@ -7886,6 +7887,7 @@ __metadata:
     husky: ^8.0.1
     lint-staged: ^12.5.0
     node-stream-zip: ^1.15.0
+    open: ^8.4.0
     prettier: ^2.7.1
     serverless: ^3.21.0
     standard-version: ^9.5.0
@@ -7893,7 +7895,6 @@ __metadata:
     ttypescript: ^1.5.13
     typescript: ^4.7.4
   peerDependencies:
-    esbuild-visualizer: ^0.3.1
     serverless: ^2.60 || ^3
   languageName: unknown
   linkType: soft
@@ -9310,6 +9311,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"yargs-parser@npm:^21.1.1":
+  version: 21.1.1
+  resolution: "yargs-parser@npm:21.1.1"
+  checksum: ed2d96a616a9e3e1cc7d204c62ecc61f7aaab633dcbfab2c6df50f7f87b393993fe6640d017759fe112d0cb1e0119f2b4150a87305cc873fd90831c6a58ccf1c
+  languageName: node
+  linkType: hard
+
 "yargs@npm:^16.0.0, yargs@npm:^16.2.0":
   version: 16.2.0
   resolution: "yargs@npm:16.2.0"
@@ -9352,6 +9360,21 @@ __metadata:
     y18n: ^5.0.5
     yargs-parser: ^21.0.0
   checksum: 00d58a2c052937fa044834313f07910fd0a115dec5ee35919e857eeee3736b21a4eafa8264535800ba8bac312991ce785ecb8a51f4d2cc8c4676d865af1cfbde
+  languageName: node
+  linkType: hard
+
+"yargs@npm:^17.6.2":
+  version: 17.6.2
+  resolution: "yargs@npm:17.6.2"
+  dependencies:
+    cliui: ^8.0.1
+    escalade: ^3.1.1
+    get-caller-file: ^2.0.5
+    require-directory: ^2.1.1
+    string-width: ^4.2.3
+    y18n: ^5.0.5
+    yargs-parser: ^21.1.1
+  checksum: 47da1b0d854fa16d45a3ded57b716b013b2179022352a5f7467409da5a04a1eef5b3b3d97a2dfc13e8bbe5f2ffc0afe3bc6a4a72f8254e60f5a4bd7947138643
   languageName: node
   linkType: hard
 
