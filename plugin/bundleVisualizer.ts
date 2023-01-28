@@ -1,29 +1,12 @@
-import check from 'check-node-version';
-import { exec } from 'child_process';
-import { readdirSync, statSync } from 'fs';
-import { tmpdir } from 'os';
+import { Metadata, visualizer } from 'esbuild-visualizer';
+import { mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'fs';
 import { mkdir } from 'fs/promises';
-import { join, normalize, parse } from 'path';
-import { FunctionDefinitionHandler } from 'serverless';
 import StreamZip from 'node-stream-zip';
-
+import opn from 'open';
+import { tmpdir } from 'os';
+import { dirname, join, normalize, parse } from 'path';
+import { FunctionDefinitionHandler } from 'serverless';
 import type { ServerlessAnalyzeBundlePlugin } from './serverlessAnalyzeBundle';
-
-const pExec = (command: string) =>
-  new Promise((resolve, reject) => {
-    // eslint-disable-next-line max-params
-    exec(command, (error, stdout, stderr) => {
-      if (stderr) {
-        console.error(`stderr: ${stderr}`);
-      }
-
-      if (error) {
-        reject(error);
-      }
-
-      resolve(stdout);
-    });
-  });
 
 const getAllFiles = function (dirPath: string, arrayOfFilesInput: string[] = []) {
   const files = readdirSync(dirPath);
@@ -87,23 +70,20 @@ async function bundleVisualizer(this: ServerlessAnalyzeBundlePlugin): Promise<vo
     return;
   }
 
-  const commandArray = [
-    '--metadata',
-    metafileName,
-    '--filename',
-    `${TEMP_DIR_LOCATION}/${functionName}.html`,
-    '--open',
-  ];
+  const textContent = readFileSync(metafileName, { encoding: 'utf-8' });
+  const jsonContent = JSON.parse(textContent) as Metadata;
 
-  check({ yarn: '>=2' }, err => {
-    if (err !== null) {
-      commandArray.unshift('node_modules/.bin/esbuild-visualizer');
-    } else {
-      commandArray.unshift('yarn', 'esbuild-visualizer');
-    }
-
-    void pExec(commandArray.join(' '));
+  const fileContent = await visualizer(jsonContent, {
+    title: `${functionName} function bundle visualizer `,
+    template: 'treemap',
   });
+
+  const filename = `${TEMP_DIR_LOCATION}/${functionName}.html`;
+
+  mkdirSync(dirname(filename), { recursive: true });
+  writeFileSync(filename, fileContent);
+
+  await opn(filename);
 }
 
 export default bundleVisualizer;
