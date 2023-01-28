@@ -1,10 +1,12 @@
-import * as Serverless from 'serverless';
-import * as Plugin from 'serverless/classes/Plugin';
+import { TemplateType } from 'esbuild-visualizer';
+import Serverless from 'serverless';
+import Plugin from 'serverless/classes/Plugin';
 
 import bundleVisualizer from './bundleVisualizer';
 
 interface OptionsExtended extends Serverless.Options {
   analyze?: string;
+  template?: TemplateType;
 }
 
 export class ServerlessAnalyzeBundlePlugin implements Plugin {
@@ -12,9 +14,10 @@ export class ServerlessAnalyzeBundlePlugin implements Plugin {
   serverless: Serverless;
   hooks: Plugin.Hooks;
   commands: Plugin.Commands;
-  bundleVisualizer: () => Promise<void>;
+  bundleVisualizer: typeof bundleVisualizer;
 
-  constructor(serverless: Serverless, options: OptionsExtended) {
+  // eslint-disable-next-line max-params
+  constructor(serverless: Serverless, options: OptionsExtended, logging: Plugin.Logging) {
     this.bundleVisualizer = bundleVisualizer.bind(this);
 
     this.options = options;
@@ -28,16 +31,30 @@ export class ServerlessAnalyzeBundlePlugin implements Plugin {
             type: 'string',
             usage: 'Specify the function you want to analyze (e.g. "--analyze \'helloWorld\'")',
           },
+          template: {
+            // @ts-expect-error plugin is badly typed 🤔
+            type: 'string',
+            usage:
+              "Specify the template you want to use (e.g. \"--template 'treemap'\"). Should be one of 'sunburst', 'treemap', 'network'. Defaults to 'treemap'",
+          },
         },
       },
     };
     this.hooks = {
       'after:package:finalize': async () => {
-        const { analyze } = this.options;
+        const { analyze, template } = this.options;
         if (analyze === undefined) {
           return;
         }
-        await this.bundleVisualizer();
+        if (template !== undefined && !['sunburst', 'treemap', 'network'].includes(template)) {
+          // @ts-expect-error serverless is badly typed 🤔
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+          throw new serverless.classes.Error(
+            `🤯 Analyze failed: template ${template} is not supported. Should be one of 'sunburst', 'treemap', 'network'`,
+          );
+        }
+
+        await this.bundleVisualizer({ logging, template: template ?? 'treemap' });
       },
     };
 

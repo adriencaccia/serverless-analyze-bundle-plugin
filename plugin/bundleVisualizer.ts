@@ -1,4 +1,4 @@
-import { Metadata, visualizer } from 'esbuild-visualizer';
+import { Metadata, TemplateType, visualizer } from 'esbuild-visualizer';
 import { mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'fs';
 import { mkdir } from 'fs/promises';
 import StreamZip from 'node-stream-zip';
@@ -6,6 +6,8 @@ import opn from 'open';
 import { tmpdir } from 'os';
 import { dirname, join, normalize, parse } from 'path';
 import { FunctionDefinitionHandler } from 'serverless';
+import Plugin from 'serverless/classes/Plugin';
+
 import type { ServerlessAnalyzeBundlePlugin } from './serverlessAnalyzeBundle';
 
 const getAllFiles = function (dirPath: string, arrayOfFilesInput: string[] = []) {
@@ -27,7 +29,10 @@ const getAllFiles = function (dirPath: string, arrayOfFilesInput: string[] = [])
 
 const TMP_FOLDER = join(tmpdir(), 'serverless-esbuild-bundle-analyzer');
 
-async function bundleVisualizer(this: ServerlessAnalyzeBundlePlugin): Promise<void> {
+async function bundleVisualizer(
+  this: ServerlessAnalyzeBundlePlugin,
+  options: { logging: Plugin.Logging; template: TemplateType },
+): Promise<void> {
   const { analyze: functionName } = this.options;
   if (functionName === undefined) {
     return;
@@ -36,17 +41,16 @@ async function bundleVisualizer(this: ServerlessAnalyzeBundlePlugin): Promise<vo
 
   const fullZipPath = slsFunction.package?.artifact;
   if (fullZipPath === undefined) {
-    this.serverless.cli.log(
-      `🤯 Analyze failed: function ${functionName} was not found`,
-      'ServerlessAnalyzeBundlePlugin',
-      { color: 'red' },
-    );
-
-    return;
+    // @ts-expect-error serverless is badly typed 🤔
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    throw new serverless.classes.Error(`🤯 Analyze failed: function ${functionName} was not found`);
   }
   const functionZipName = parse(fullZipPath).base;
 
-  this.serverless.cli.log(`⏳ Analyzing function ${functionName}`, 'ServerlessAnalyzeBundlePlugin');
+  options.logging.log.notice(
+    `⏳ Analyzing function ${functionName}`,
+    'ServerlessAnalyzeBundlePlugin',
+  );
 
   const TEMP_DIR_LOCATION = join(TMP_FOLDER, functionZipName, new Date().getTime().toString());
   await mkdir(TEMP_DIR_LOCATION, { recursive: true });
@@ -61,13 +65,11 @@ async function bundleVisualizer(this: ServerlessAnalyzeBundlePlugin): Promise<vo
   )[0];
 
   if (!metafileName) {
-    this.serverless.cli.log(
+    // @ts-expect-error serverless is badly typed 🤔
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    throw new serverless.classes.Error(
       `🤯 Analyze failed: function ${functionName} metadata was not found`,
-      'ServerlessAnalyzeBundlePlugin',
-      { color: 'red' },
     );
-
-    return;
   }
 
   const textContent = readFileSync(metafileName, { encoding: 'utf-8' });
@@ -75,7 +77,7 @@ async function bundleVisualizer(this: ServerlessAnalyzeBundlePlugin): Promise<vo
 
   const fileContent = await visualizer(jsonContent, {
     title: `${functionName} function bundle visualizer `,
-    template: 'treemap',
+    template: options.template,
   });
 
   const filename = `${TEMP_DIR_LOCATION}/${functionName}.html`;
