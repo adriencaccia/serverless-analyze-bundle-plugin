@@ -1,5 +1,5 @@
-import * as Serverless from 'serverless';
-import * as Plugin from 'serverless/classes/Plugin';
+import Serverless from 'serverless';
+import Plugin from 'serverless/classes/Plugin';
 
 import bundleVisualizer from './bundleVisualizer';
 
@@ -12,9 +12,10 @@ export class ServerlessAnalyzeBundlePlugin implements Plugin {
   serverless: Serverless;
   hooks: Plugin.Hooks;
   commands: Plugin.Commands;
-  bundleVisualizer: () => Promise<void>;
+  bundleVisualizer: typeof bundleVisualizer;
 
-  constructor(serverless: Serverless, options: OptionsExtended) {
+  // eslint-disable-next-line max-params
+  constructor(serverless: Serverless, options: OptionsExtended, logging: Plugin.Logging) {
     this.bundleVisualizer = bundleVisualizer.bind(this);
 
     this.options = options;
@@ -37,7 +38,7 @@ export class ServerlessAnalyzeBundlePlugin implements Plugin {
         if (analyze === undefined) {
           return;
         }
-        await this.bundleVisualizer();
+        await this.bundleVisualizer({ logging });
       },
     };
 
