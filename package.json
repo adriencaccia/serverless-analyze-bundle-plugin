@@ -3,42 +3,39 @@
   "version": "2.0.0",
   "author": "Adrien Cacciaguerra",
   "license": "MIT",
+  "homepage": "https://github.com/adriencaccia/serverless-analyze-bundle-plugin#readme",
+  "bugs": "https://github.com/adriencaccia/serverless-analyze-bundle-plugin/issues",
+  "repository": "adriencaccia/serverless-analyze-bundle-plugin.git",
+  "sideEffects": false,
   "files": [
     "dist"
   ],
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "types": "dist/types/index.d.ts",
   "scripts": {
-    "lint:fix": "yarn linter-base-config --fix",
-    "lint:fix-all": "yarn lint:fix .",
+    "lint-fix": "pnpm linter-base-config --fix",
+    "lint-fix-all": "pnpm lint-fix .",
     "linter-base-config": "eslint --ext=js,ts .",
-    "package": "rm -rf dist && yarn package:cjs && yarn package:esm && yarn package:types",
-    "package:cjs": "NODE_ENV=cjs yarn transpile --out-dir dist/cjs --source-maps",
-    "package:esm": "NODE_ENV=esm yarn transpile --out-dir dist/esm --source-maps",
-    "package:types": "ttsc",
+    "package": "rm -rf dist && pnpm package-transpile && pnpm package-types && pnpm package-types-aliases",
+    "package-transpile": "tsup index.ts",
+    "package-types": "tsc",
+    "package-types-aliases": "tsc-alias",
     "precommit": "lint-staged",
-    "prepare": "husky install",
-    "prepublishOnly": "yarn package",
-    "test:linter": "yarn linter-base-config .",
-    "test:type": "tsc --noEmit --emitDeclarationOnly false",
-    "transpile": "babel . --extensions .ts",
-    "watch": "rm -rf dist && concurrently 'yarn:package:* --watch'",
-    "release": "standard-version"
+    "prepare": "husky install && syncpack format",
+    "prepublishOnly": "pnpm package",
+    "release": "standard-version",
+    "test-linter": "pnpm linter-base-config .",
+    "test-type": "tsc --noEmit --emitDeclarationOnly false",
+    "watch": "rm -rf dist && concurrently 'pnpm:package-* --watch'"
   },
-  "bugs": "https://github.com/adriencaccia/serverless-analyze-bundle-plugin/issues",
   "dependencies": {
-    "@babel/runtime": "^7.18.6",
     "esbuild-visualizer": "^0.4.0",
     "node-stream-zip": "^1.15.0",
     "open": "^8.4.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.18.6",
-    "@babel/core": "^7.18.6",
-    "@babel/plugin-transform-runtime": "^7.18.6",
-    "@babel/preset-env": "^7.18.6",
-    "@babel/preset-typescript": "^7.18.6",
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
     "@serverless/typescript": "^3.27.0",
@@ -46,7 +43,6 @@
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
     "@zerollup/ts-transform-paths": "^1.7.18",
-    "babel-plugin-module-resolver": "^4.1.0",
     "concurrently": "^7.2.2",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
@@ -58,13 +54,12 @@
     "serverless": "^3.27.0",
     "standard-version": "^9.5.0",
     "syncpack": "^8.2.4",
-    "ttypescript": "^1.5.13",
+    "tsc-alias": "^1.8.2",
+    "tsup": "^6.5.0",
     "typescript": "^4.7.4"
   },
-  "homepage": "https://github.com/adriencaccia/serverless-analyze-bundle-plugin#readme",
+  "packageManager": "pnpm@7.26.2",
   "peerDependencies": {
     "serverless": "^3"
-  },
-  "repository": "adriencaccia/serverless-analyze-bundle-plugin.git",
-  "packageManager": "yarn@3.2.1"
+  }
 }
