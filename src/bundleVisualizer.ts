@@ -48,7 +48,7 @@ async function bundleVisualizer(
   const functionZipName = parse(fullZipPath).base;
 
   options.logging.log.notice(
-    `⏳ Analyzing function ${functionName}`,
+    `⏳ Analyzing function ${functionName} POUWQEPOQUWEPOQUWEOWUE`,
     'ServerlessAnalyzeBundlePlugin',
   );
 
