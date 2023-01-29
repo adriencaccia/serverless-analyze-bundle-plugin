@@ -33,6 +33,6 @@ jobs:
         run: pnpm install
         shell: bash
       - name: lint
-        run: pnpm test:linter
+        run: pnpm test-linter
       - name: type check
-        run: pnpm test:type
+        run: pnpm test-type
