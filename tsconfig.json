@@ -10,7 +10,7 @@
     "target": "ES2020",
     "strict": true,
     "baseUrl": "src",
-    "composite": true,
+    "declaration": true,
     "emitDeclarationOnly": true,
     "allowSyntheticDefaultImports": true,
     "outDir": "./dist/types"
