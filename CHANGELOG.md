@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/adriencaccia/serverless-analyze-bundle-plugin/compare/v2.0.0...v2.0.1) (2023-01-29)
+
+
+### Bug Fixes
+
+* remove useless tsbuildinfo from packaged files ([d4bc723](https://github.com/adriencaccia/serverless-analyze-bundle-plugin/commit/d4bc7232c7e3e9e52433d7f88e802189105f092f))
+
 ## [2.0.0](https://github.com/adriencaccia/serverless-analyze-bundle-plugin/compare/v1.2.1...v2.0.0) (2023-01-28)
 
 
