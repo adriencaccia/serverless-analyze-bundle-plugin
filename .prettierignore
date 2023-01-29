@@ -1,6 +1,6 @@
 *.hbs
 .next
-yarn.lock
+pnpm-lock.yaml
 **/.serverless
 **/stack.json
 .gitlab-ci.yml

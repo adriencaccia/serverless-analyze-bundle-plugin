@@ -8,7 +8,7 @@
     "**/coverage": true,
     "**/node_modules": true,
     "**/.serverless": true,
-    "yarn.lock": true
+    "pnpm-lock.yaml": true
   },
   "[shellscript][ignore]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
