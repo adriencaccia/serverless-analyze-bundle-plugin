@@ -32,3 +32,7 @@ The name of the function to analyze.
 ### `--template`
 
 The bundle template to use. Should be one of `sunburst`, `treemap`, `network`. Defaults to `treemap`.
+
+## Using the CDK instead of the Serverless Framework? 🤔
+
+No worries! Check out my library [cdk-bundle-analyzer](https://github.com/adriencaccia/cdk-bundle-analyzer) that does the same thing for the CDK 🚀
