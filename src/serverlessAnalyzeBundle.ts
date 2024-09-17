@@ -47,7 +47,6 @@ export class ServerlessAnalyzeBundlePlugin implements Plugin {
           return;
         }
         if (template !== undefined && !['sunburst', 'treemap', 'network'].includes(template)) {
-          // @ts-expect-error serverless is badly typed 🤔
           // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
           throw new serverless.classes.Error(
             `🤯 Analyze failed: template ${template} is not supported. Should be one of 'sunburst', 'treemap', 'network'`,

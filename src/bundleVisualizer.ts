@@ -41,7 +41,6 @@ async function bundleVisualizer(
 
   const fullZipPath = slsFunction.package?.artifact;
   if (fullZipPath === undefined) {
-    // @ts-expect-error serverless is badly typed 🤔
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     throw new this.serverless.classes.Error(
       `🤯 Analyze failed: function ${functionName} was not found`,
@@ -67,7 +66,6 @@ async function bundleVisualizer(
   )[0];
 
   if (!metafileName) {
-    // @ts-expect-error serverless is badly typed 🤔
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     throw new this.serverless.classes.Error(
       `🤯 Analyze failed: function ${functionName} metadata was not found`,
