@@ -43,7 +43,9 @@ async function bundleVisualizer(
   if (fullZipPath === undefined) {
     // @ts-expect-error serverless is badly typed 🤔
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    throw new serverless.classes.Error(`🤯 Analyze failed: function ${functionName} was not found`);
+    throw new this.serverless.classes.Error(
+      `🤯 Analyze failed: function ${functionName} was not found`,
+    );
   }
   const functionZipName = parse(fullZipPath).base;
 
@@ -67,7 +69,7 @@ async function bundleVisualizer(
   if (!metafileName) {
     // @ts-expect-error serverless is badly typed 🤔
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    throw new serverless.classes.Error(
+    throw new this.serverless.classes.Error(
       `🤯 Analyze failed: function ${functionName} metadata was not found`,
     );
   }
