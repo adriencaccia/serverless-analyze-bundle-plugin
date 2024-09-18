@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.2](https://github.com/adriencaccia/serverless-analyze-bundle-plugin/compare/v2.0.1...v2.0.2) (2024-09-18)
+
+
+### Bug Fixes
+
+* remove [@ts-expect-error](https://github.com/ts-expect-error) ([a8289e0](https://github.com/adriencaccia/serverless-analyze-bundle-plugin/commit/a8289e0ba33768b86f9698b36c683e487c937482))
+* serverless is not defined ([1665fde](https://github.com/adriencaccia/serverless-analyze-bundle-plugin/commit/1665fde1c4d87d45e3b62b0c19f6cd28df2f8c39))
+
 ### [2.0.1](https://github.com/adriencaccia/serverless-analyze-bundle-plugin/compare/v2.0.0...v2.0.1) (2023-01-29)
 
 
