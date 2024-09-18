@@ -41,7 +41,6 @@ async function bundleVisualizer(
 
   const fullZipPath = slsFunction.package?.artifact;
   if (fullZipPath === undefined) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     throw new this.serverless.classes.Error(
       `🤯 Analyze failed: function ${functionName} was not found`,
     );
@@ -49,7 +48,7 @@ async function bundleVisualizer(
   const functionZipName = parse(fullZipPath).base;
 
   options.logging.log.notice(
-    `⏳ Analyzing function ${functionName} POUWQEPOQUWEPOQUWEOWUE`,
+    `⏳ Analyzing function ${functionName}`,
     'ServerlessAnalyzeBundlePlugin',
   );
 
@@ -66,7 +65,6 @@ async function bundleVisualizer(
   )[0];
 
   if (!metafileName) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     throw new this.serverless.classes.Error(
       `🤯 Analyze failed: function ${functionName} metadata was not found`,
     );
@@ -76,7 +74,7 @@ async function bundleVisualizer(
   const jsonContent = JSON.parse(textContent) as Metadata;
 
   const fileContent = await visualizer(jsonContent, {
-    title: `${functionName} function bundle visualizer `,
+    title: `${functionName} function bundle visualizer`,
     template: options.template,
   });
 
