@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/adriencaccia/serverless-analyze-bundle-plugin/compare/v2.0.2...v2.1.0) (2025-02-11)
+
+
+### Features
+
+* support v4 serverless peer ([3d4b8ab](https://github.com/adriencaccia/serverless-analyze-bundle-plugin/commit/3d4b8abcfe2c3cc0dc0d5fc6731cc0bb92190cdb)), closes [#24](https://github.com/adriencaccia/serverless-analyze-bundle-plugin/issues/24)
+
 ### [2.0.2](https://github.com/adriencaccia/serverless-analyze-bundle-plugin/compare/v2.0.1...v2.0.2) (2024-09-18)
 
 
