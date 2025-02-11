@@ -60,6 +60,6 @@
   },
   "packageManager": "pnpm@9.10.0",
   "peerDependencies": {
-    "serverless": "^3"
+    "serverless": "^4"
   }
 }
