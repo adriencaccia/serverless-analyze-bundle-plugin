@@ -39,7 +39,7 @@
     "@commitlint/cli": "^17.8.1",
     "@commitlint/config-conventional": "^17.8.1",
     "@serverless/typescript": "^3.38.0",
-    "@types/serverless": "^3.12.22",
+    "@types/serverless": "^3.12.27",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "@zerollup/ts-transform-paths": "^1.7.18",
@@ -51,7 +51,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^12.5.0",
     "prettier": "^2.8.8",
-    "serverless": "^3.39.0",
+    "serverless": "^4.6.2",
     "standard-version": "^9.5.0",
     "syncpack": "^8.5.14",
     "tsc-alias": "^1.8.10",
@@ -60,6 +60,6 @@
   },
   "packageManager": "pnpm@9.10.0",
   "peerDependencies": {
-    "serverless": "^4"
+    "serverless": "^3 || ^4"
   }
 }

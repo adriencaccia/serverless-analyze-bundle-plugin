@@ -27,12 +27,10 @@ export class ServerlessAnalyzeBundlePlugin implements Plugin {
         usage: 'Analyze the bundle of a lambda function',
         options: {
           analyze: {
-            // @ts-expect-error plugin is badly typed 🤔
             type: 'string',
             usage: 'Specify the function you want to analyze (e.g. "--analyze \'helloWorld\'")',
           },
           template: {
-            // @ts-expect-error plugin is badly typed 🤔
             type: 'string',
             usage:
               "Specify the template you want to use (e.g. \"--template 'treemap'\"). Should be one of 'sunburst', 'treemap', 'network'. Defaults to 'treemap'",
@@ -47,7 +45,6 @@ export class ServerlessAnalyzeBundlePlugin implements Plugin {
           return;
         }
         if (template !== undefined && !['sunburst', 'treemap', 'network'].includes(template)) {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
           throw new serverless.classes.Error(
             `🤯 Analyze failed: template ${template} is not supported. Should be one of 'sunburst', 'treemap', 'network'`,
           );
